@@ -23,6 +23,7 @@
 
 
 
+
 import { useEffect, useState } from "react";
 import Newsitem from "./Newsitem";
 
@@ -37,7 +38,11 @@ const Newsboard = ({ category }) => {
         setLoading(true);
         setError(null);
         const url = `https://newsapi.org/v2/top-headlines?country=in&category=${category}&apiKey=${import.meta.env.VITE_API_KEY}`;
-        const response = await fetch(url);
+        const response = await fetch(url, {
+          headers: {
+            'Upgrade-Insecure-Requests': '1',
+          },
+        });
         if (!response.ok) {
           throw new Error(`Error: ${response.status}`);
         }
@@ -74,4 +79,3 @@ const Newsboard = ({ category }) => {
 };
 
 export default Newsboard;
-
